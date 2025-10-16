@@ -1,28 +1,88 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content=
-  "width=device-width, initial-scale=1.0">
-  <title>Ask Her Out</title>
-  <link rel="stylesheet" href="./style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ask Her Out</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            text-align: center;
+        }
+        h1 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+        p {
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+        }
+        button {
+            padding: 0.5rem 1.5rem;
+            margin: 0.5rem;
+            font-size: 1rem;
+            cursor: pointer;
+        }
+    </style>
 </head>
 <body>
-  <div class="container">
-    <div class="tenor-gif-embed" data-postid="22885016"
-    data-share-method="host" data-aspect-ratio="1.04918"
-    data-width="100%">
-      <a href="https://tenor.com/view/manja-gif-22885016">Manja
-      Sticker</a>from <a href=
-      "https://tenor.com/search/manja-stickers">Manja Stickers</a>
-    </div>
-    <script type="text/javascript" async src=
-    "https://tenor.com/embed.js"></script>
-    <h1>Do you love me tannu? 🤗</h1>
-    <p>I am all yours</p>
-    <div class="btn">
-      <a href='/yes'>Yes</a> <a href='/no1'>No</a>
-    </div>
-  </div>
+    <div id="main"></div>
+
+    <script>
+        // Sabhi pages ke questions aur messages yahan define hain
+        const pages = [
+            { h1: "Do you love me tannu?", p: "" },
+            { h1: "Please think again! Mera bauaa", p: "itni jaldi nahi matt bolo tannu" },
+            { h1: "Ek aur baar Soch lo!", p: "kyu aisa kar rahe ho" },
+            { h1: "Last chance! 🤔", p: "Sach me No bolna hai?" },
+            { h1: "I knew it! You said Yes!", p: "Love you ❤️" }
+        ];
+
+        let currentPage = 0;
+
+        function renderPage(pageIdx) {
+            const { h1, p } = pages[pageIdx];
+            let html = `<h1>${h1}</h1>`;
+            if (p) html += `<p>${p}</p>`;
+            if (pageIdx < 4) {
+                html += `
+                    <button onclick="yesClicked()">Yes</button>
+                    <button onclick="noClicked()">No</button>
+                `;
+            } else {
+                html += `<button onclick="restart()">Restart</button>`;
+            }
+            document.getElementById('main').innerHTML = html;
+        }
+
+        function yesClicked() {
+            currentPage = 4;
+            renderPage(currentPage);
+        }
+
+        function noClicked() {
+            if (currentPage < 3) {
+                currentPage++;
+                renderPage(currentPage);
+            } else {
+                currentPage = 4;
+                renderPage(currentPage);
+            }
+        }
+
+        function restart() {
+            currentPage = 0;
+            renderPage(currentPage);
+        }
+
+        // Initial render
+        renderPage(currentPage);
+    </script>
 </body>
 </html>
